@@ -1,0 +1,1244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembelajaran Interaktif PJOK Kelas 7</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Latar belakang abu-abu muda */
+        }
+        .quiz-option {
+            transition: background-color 0.2s;
+        }
+        .quiz-option:hover {
+            background-color: #E0E7FF; /* Biru muda saat hover */
+        }
+        .quiz-option.selected-correct {
+            background-color: #D1FAE5 !important; /* Hijau untuk jawaban benar */
+            border-color: #10B981;
+        }
+        .quiz-option.selected-incorrect {
+            background-color: #FEE2E2 !important; /* Merah untuk jawaban salah */
+            border-color: #EF4444;
+        }
+        .quiz-option.disabled {
+            pointer-events: none;
+            opacity: 0.7;
+        }
+        .quiz-explanation {
+            display: none;
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            background-color: #F9FAFB; /* Latar belakang netral */
+            border: 1px solid #D1D5DB;
+        }
+        .quiz-explanation.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="flex flex-col h-screen">
+        <!-- Header -->
+        <header class="bg-white shadow-md p-4 flex justify-between items-center sticky top-0 z-10 w-full">
+            <div class="flex items-center">
+                 <svg class="h-8 w-8 text-blue-600 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v11.494m-9-5.747h18"/>
+                </svg>
+                <h1 class="text-xl font-bold text-gray-800 hidden sm:block">PJOK Kelas 7</h1>
+            </div>
+            <div class="flex items-center gap-4">
+                <select id="nav-select" class="w-40 md:w-56 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5">
+                    <!-- Nav options will be injected by JS -->
+                </select>
+                <input type="text" id="search-input" placeholder="Cari materi..." class="w-full max-w-xs px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 hidden md:block">
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 overflow-y-auto">
+            <div class="p-6 lg:p-8">
+                <h2 id="content-title" class="text-3xl font-bold text-gray-900 mb-6">Selamat Datang!</h2>
+                <div id="main-content">
+                    <!-- Content will be injected by JS -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // --- DATA ---
+    const allData = {
+        pelajaran1: {
+            title: 'Permainan Bola Besar',
+            content: `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Permainan bola besar adalah cabang olahraga yang menggunakan bola berukuran besar sebagai alat utama. Bab ini akan membahas tiga permainan bola besar populer: Sepak Bola, Bola Voli, dan Bola Basket. Menguasai teknik dasar dari setiap permainan adalah kunci untuk dapat bermain dengan baik dan benar.</p>
+                    </div>
+
+                    <!-- Sepak Bola -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Sepak Bola</h3>
+                        <p class="mb-4">Sepak bola adalah permainan beregu yang bertujuan memasukkan bola ke gawang lawan dan mempertahankan gawang sendiri. Setiap regu terdiri dari 11 pemain dan dimainkan dalam 2 babak (2x45 menit).</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Menendang Bola:</strong> Gerakan fundamental untuk mengoper atau menembak ke gawang.
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Kaki Bagian Dalam:</strong> Untuk operan jarak pendek dan akurasi tinggi.</li>
+                                    <li><strong>Punggung Kaki:</strong> Untuk tendangan keras dan jarak jauh.</li>
+                                    <li><strong>Kaki Bagian Luar:</strong> Untuk operan mengecoh atau tendangan melengkung.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Menghentikan Bola (Kontrol):</strong> Menguasai bola yang datang dengan kaki bagian dalam, telapak kaki, atau dada.</li>
+                            <li><strong>Menggiring Bola (Dribbling):</strong> Membawa bola sambil berlari untuk melewati lawan atau mencari ruang.</li>
+                            <li><strong>Menyundul Bola (Heading):</strong> Menggunakan kepala (dahi) untuk mengoper atau mencetak gol.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Gerakan menendang bola yang paling cocok digunakan untuk memberikan operan jarak pendek kepada teman yang berada di dekat kita adalah menggunakan...</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Jawaban yang tepat adalah menggunakan <strong>kaki bagian dalam</strong>. Teknik ini memberikan akurasi tertinggi untuk operan jarak pendek karena area kontak kaki dengan bola lebih luas dan stabil, sehingga laju dan arah bola lebih mudah dikontrol.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bola Voli -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">B. Bola Voli</h3>
+                        <p class="mb-4">Bola voli adalah permainan yang dimainkan oleh dua regu (masing-masing 6 pemain) yang dipisahkan oleh net. Tujuannya adalah menjatuhkan bola di area lawan dan mencegah lawan melakukan hal yang sama.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Servis:</strong> Pukulan awal untuk memulai permainan.
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Servis Bawah:</strong> Mudah dilakukan, cocok untuk pemula.</li>
+                                    <li><strong>Servis Atas:</strong> Pukulan lebih keras dan sulit diterima lawan.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Passing:</strong> Mengoper bola kepada teman.
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Passing Bawah:</strong> Menggunakan kedua lengan yang dirapatkan untuk menerima bola rendah atau servis.</li>
+                                    <li><strong>Passing Atas:</strong> Menggunakan jari-jari kedua tangan di atas kepala untuk mengatur serangan.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Smash (Spike):</strong> Pukulan keras dan menukik untuk mematikan lawan.</li>
+                            <li><strong>Blok (Bendungan):</strong> Menghalau smash lawan di atas net.</li>
+                        </ul>
+                         <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Saat menerima servis yang datangnya rendah dan kencang, teknik passing yang paling efektif digunakan adalah...</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Jawaban yang tepat adalah <strong>passing bawah</strong>. Passing bawah dirancang untuk mengontrol bola yang datang di bawah ketinggian dada. Posisi lengan yang rapat dan lurus memberikan platform yang stabil untuk mengarahkan bola ke rekan satu tim (setter) dengan akurat.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bola Basket -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">C. Bola Basket</h3>
+                        <p class="mb-4">Permainan bola basket dimainkan oleh dua regu (masing-masing 5 pemain) dengan tujuan memasukkan bola ke keranjang lawan sebanyak-banyaknya.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Menggiring Bola (Dribbling):</strong> Memantul-mantulkan bola ke lantai dengan satu tangan sambil bergerak.</li>
+                            <li><strong>Mengoper Bola (Passing):</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Chest Pass (Operan Dada):</strong> Operan lurus dari depan dada untuk jarak pendek.</li>
+                                    <li><strong>Bounce Pass (Operan Pantul):</strong> Operan dengan memantulkan bola ke lantai untuk melewati hadangan lawan.</li>
+                                    <li><strong>Overhead Pass (Operan di Atas Kepala):</strong> Operan untuk jarak jauh atau melewati pemain bertahan yang lebih pendek.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Menembak (Shooting):</strong> Usaha memasukkan bola ke keranjang, bisa dengan lay-up, jump shot, atau set shot.</li>
+                            <li><strong>Pivot:</strong> Gerakan memutar badan dengan bertumpu pada satu kaki untuk melindungi bola dari lawan.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Seorang pemain ingin mengoper bola kepada temannya, tetapi dihalangi oleh lawan yang tinggi. Operan apakah yang paling efektif untuk situasi ini?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Jawaban yang tepat adalah <strong>Bounce Pass (operan pantul)</strong>. Dengan memantulkan bola ke lantai, bola akan melewati bagian bawah jangkauan tangan lawan yang tinggi, sehingga lebih sulit untuk direbut dan bisa sampai ke teman dengan aman.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Permainan bola besar seperti sepak bola, bola voli, dan bola basket membutuhkan penguasaan teknik dasar yang baik, kerjasama tim, dan pemahaman aturan. Setiap teknik memiliki fungsi spesifik, mulai dari memulai permainan (servis), menggerakkan bola (passing, dribbling), hingga mencetak skor (shooting, smash). Latihan rutin akan meningkatkan keterampilan dan performa dalam bermain.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran2: {
+            title: 'Permainan Bola Kecil',
+            content: `
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Permainan bola kecil adalah cabang olahraga yang menggunakan bola berukuran kecil dan alat pemukul. Bab ini akan membahas tiga permainan bola kecil yang populer di Indonesia: Kasti, Bulu Tangkis, dan Tenis Meja. Permainan ini melatih ketangkasan, kecepatan, dan akurasi.</p>
+                    </div>
+
+                    <!-- Kasti -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Kasti</h3>
+                        <p class="mb-4">Kasti adalah permainan tradisional beregu yang dimainkan oleh dua tim: regu pemukul dan regu penjaga. Permainan ini mengutamakan unsur kekompakan, ketangkasan, serta kegembiraan.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Melempar Bola:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Lemparan Melambung:</strong> Untuk operan jarak jauh.</li>
+                                    <li><strong>Lemparan Mendatar:</strong> Untuk operan cepat dan akurat jarak menengah.</li>
+                                    <li><strong>Lemparan Menyusur Tanah:</strong> Untuk mengecoh lawan.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Menangkap Bola:</strong> Keterampilan penting bagi regu penjaga. Menangkap bola lurus, melambung, atau menyusur tanah.</li>
+                            <li><strong>Memukul Bola:</strong> Menggunakan tongkat pemukul untuk memukul bola sejauh mungkin. Pukulan bisa melambung, mendatar, atau merendah.</li>
+                            <li><strong>Berlari:</strong> Kecepatan berlari ke tiang hinggap (base) sangat menentukan perolehan nilai.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Seorang pelari kasti berhasil memukul bola dengan jauh dan dapat berlari melewati semua tiang hinggap lalu kembali ke ruang bebas tanpa berhenti. Berapa nilai yang didapatkannya?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Jawaban yang tepat adalah <strong>nilai 2</strong>. Dalam permainan kasti, jika pemukul berhasil memukul bola dengan baik dan bisa langsung kembali ke ruang bebas (home run) dalam satu kali lari, ia berhak mendapatkan nilai 2. Jika ia kembali setelah berhenti di tiang hinggap, nilainya hanya 1.</p>
+                        </div>
+                    </div>
+
+                    <!-- Bulu Tangkis -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">B. Bulu Tangkis</h3>
+                        <p class="mb-4">Bulu tangkis adalah olahraga raket yang dimainkan oleh dua pemain (tunggal) atau dua pasang (ganda) yang saling berlawanan. Tujuannya adalah memukul shuttlecock (kok) melewati net dan jatuh di area lawan.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                             <li><strong>Pegangan Raket (Grip):</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Forehand Grip:</strong> Seperti berjabat tangan, untuk pukulan di sisi tangan yang memegang raket.</li>
+                                    <li><strong>Backhand Grip:</strong> Ibu jari menekan gagang raket, untuk pukulan di sisi berlawanan.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Pukulan Servis:</strong> Pukulan awal untuk memulai permainan. Ada servis pendek dan servis panjang.</li>
+                            <li><strong>Pukulan Lob:</strong> Pukulan melambung tinggi ke arah belakang lapangan lawan, bertujuan untuk pertahanan.</li>
+                            <li><strong>Pukulan Dropshot:</strong> Pukulan tipuan yang jatuh tipis di dekat net lawan.</li>
+                            <li><strong>Pukulan Smash:</strong> Pukulan keras dan menukik tajam, merupakan serangan utama untuk mendapatkan poin.</li>
+                            <li><strong>Pukulan Drive:</strong> Pukulan cepat dan mendatar.</li>
+                        </ul>
+                         <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Ketika lawan berada di posisi belakang lapangan, pukulan apa yang paling efektif untuk mengecoh dan mendapatkan poin?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Jawaban yang tepat adalah <strong>Dropshot</strong>. Pukulan dropshot yang diarahkan jatuh tipis di dekat net akan memaksa lawan yang berada di belakang untuk berlari cepat ke depan. Pukulan ini sangat efektif untuk mengecoh dan menyulitkan lawan mengembalikan bola.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tenis Meja -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">C. Tenis Meja (Ping Pong)</h3>
+                        <p class="mb-4">Tenis meja adalah olahraga raket yang dimainkan di atas meja yang dibagi oleh net. Pemain menggunakan bet untuk memukul bola seluloid ringan.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Pegangan Bet (Grip):</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Shakehand Grip:</strong> Seperti berjabat tangan, paling umum digunakan.</li>
+                                    <li><strong>Penhold Grip:</strong> Seperti memegang pena, populer di Asia.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Sikap Siap (Stance):</strong> Posisi tubuh siap menerima atau memukul bola, biasanya dengan lutut sedikit ditekuk.</li>
+                            <li><strong>Pukulan Dasar:</strong>
+                                 <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Push:</strong> Pukulan mendorong untuk mengembalikan pukulan backspin atau bola pendek.</li>
+                                    <li><strong>Drive:</strong> Pukulan dengan ayunan untuk menyerang, menghasilkan bola cepat dengan sedikit putaran atas (topspin).</li>
+                                    <li><strong>Block:</strong> Pukulan bertahan untuk menahan serangan drive atau smash lawan.</li>
+                                    <li><strong>Chop:</strong> Pukulan bertahan dari jarak jauh meja, menghasilkan putaran belakang (backspin) yang kuat.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Servis:</strong> Pukulan awal yang harus memantul di sisi meja sendiri dulu sebelum menyeberang ke sisi lawan.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Apakah nama pegangan bet tenis meja yang paling umum digunakan di dunia dan cara memegangnya mirip seperti sedang berjabat tangan?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Jawaban yang tepat adalah <strong>Shakehand Grip</strong>. Pegangan ini sangat populer karena memungkinkan pemain untuk melakukan pukulan forehand dan backhand dengan sama baiknya tanpa perlu mengubah posisi tangan secara drastis, sehingga memberikan fleksibilitas dalam permainan.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Permainan bola kecil seperti kasti, bulu tangkis, dan tenis meja memerlukan kombinasi antara kecepatan, ketangkasan, dan strategi. Penguasaan teknik memukul, melempar/servis, dan bergerak menjadi kunci keberhasilan. Meskipun peralatannya kecil, permainan ini menuntut konsentrasi tinggi dan refleks yang cepat.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran3: {
+            title: 'Aktivitas Atletik',
+            content: `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Atletik sering disebut sebagai "ibu dari semua cabang olahraga" (mother of sports) karena gerakannya yang mendasar seperti jalan, lari, lompat, dan lempar menjadi dasar bagi banyak olahraga lain. Bab ini akan membahas empat nomor atletik: Jalan Cepat, Lari Jarak Pendek, Lompat Jauh, dan Tolak Peluru.</p>
+                    </div>
+
+                    <!-- Jalan Cepat -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Jalan Cepat</h3>
+                        <p class="mb-4">Jalan cepat adalah gerak maju langkah kaki yang dilakukan sedemikian rupa sehingga kontak dengan tanah tetap terpelihara dan tidak terputus. Artinya, salah satu kaki harus selalu menyentuh tanah.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Posisi Kaki:</strong> Saat melangkah, kaki depan harus menyentuh tanah sebelum kaki belakang meninggalkan tanah. Kaki tumpu harus lurus (tidak bengkok di lutut) saat dalam posisi vertikal.</li>
+                            <li><strong>Gerakan Pinggul:</strong> Gerakan pinggul yang fleksibel sangat penting untuk jangkauan langkah yang maksimal.</li>
+                            <li><strong>Gerakan Lengan:</strong> Siku ditekuk sekitar 90 derajat, diayunkan seirama dengan langkah kaki untuk menjaga keseimbangan dan menambah kecepatan.</li>
+                            <li><strong>Start:</strong> Menggunakan start berdiri.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Apa perbedaan paling mendasar antara jalan cepat dan lari?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Perbedaan utamanya adalah <strong>kontak dengan tanah</strong>. Dalam jalan cepat, setiap saat harus ada salah satu kaki yang menyentuh tanah (tidak ada fase melayang). Sedangkan dalam lari, ada momen di mana kedua kaki tidak menyentuh tanah (fase melayang).</p>
+                        </div>
+                    </div>
+
+                    <!-- Lari Jarak Pendek -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">B. Lari Jarak Pendek (Sprint)</h3>
+                        <p class="mb-4">Lari jarak pendek (100m, 200m, 400m) adalah lari dengan kecepatan maksimal dari start hingga finis.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Start Jongkok:</strong> Kunci utama dalam lari sprint. Terdiri dari aba-aba "Bersedia", "Siap", dan "Ya!" (atau bunyi pistol).
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Bersedia:</strong> Posisi jongkok, lutut kaki belakang di tanah, tangan di belakang garis start.</li>
+                                    <li><strong>Siap:</strong> Angkat panggul lebih tinggi dari bahu.</li>
+                                    <li><strong>Ya!:</strong> Tolakkan kaki sekuat tenaga dan mulai berlari.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Gerakan Lari:</strong> Badan condong ke depan, bertumpu pada ujung kaki, langkah lebar dan cepat, ayunan lengan kuat.</li>
+                            <li><strong>Memasuki Garis Finis:</strong> Tetap berlari dengan kecepatan penuh, busungkan dada ke depan atau putar salah satu bahu saat melewati garis finis.</li>
+                        </ul>
+                         <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Pada aba-aba "Siap" dalam start jongkok, bagaimana posisi panggul yang benar?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Posisi panggul yang benar pada aba-aba "Siap" adalah <strong>diangkat hingga sedikit lebih tinggi dari bahu</strong>. Posisi ini menciptakan sudut tolakan yang optimal dan memindahkan berat badan ke depan, mempersiapkan tubuh untuk melesat dengan kekuatan maksimal saat aba-aba "Ya!".</p>
+                        </div>
+                    </div>
+
+                    <!-- Lompat Jauh -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">C. Lompat Jauh</h3>
+                        <p class="mb-4">Tujuan lompat jauh adalah melompat sejauh mungkin dari balok tolakan ke bak pasir.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Awalan (Ancang-ancang):</strong> Lari dengan kecepatan tinggi namun terkontrol untuk membangun momentum.</li>
+                            <li><strong>Tolakan (Tumpuan):</strong> Menolak dengan satu kaki yang paling kuat tepat di atas balok tolakan, mengubah kecepatan horizontal menjadi vertikal.</li>
+                            <li><strong>Sikap di Udara:</strong> Ada tiga gaya: gaya jongkok, gaya menggantung, dan gaya berjalan di udara. Tujuannya menjaga keseimbangan dan mempersiapkan pendaratan.</li>
+                            <li><strong>Mendarat:</strong> Mendarat dengan kedua kaki secara bersamaan di bak pasir. Julurkan kaki sejauh mungkin ke depan dan saat mendarat, tekuk lutut dan condongkan badan ke depan agar tidak jatuh ke belakang.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Mengapa saat mendarat dalam lompat jauh, atlet harus menekuk lutut dan mencondongkan badan ke depan?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Hal ini dilakukan untuk dua alasan utama: <strong>keselamatan dan hasil pengukuran</strong>. Menekuk lutut (mengeper) berfungsi untuk meredam benturan agar tidak terjadi cedera. Mencondongkan badan ke depan bertujuan agar atlet tidak jatuh ke belakang, karena titik pendaratan terdekat dengan balok tolakanlah yang akan diukur. Jika jatuh ke belakang, hasil lompatan akan berkurang.</p>
+                        </div>
+                    </div>
+
+                     <!-- Tolak Peluru -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">D. Tolak Peluru</h3>
+                        <p class="mb-4">Tolak peluru adalah gerakan menolak atau mendorong peluru (bola logam berat) dari bahu dengan satu tangan untuk mencapai jarak sejauh-jauhnya.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Teknik Dasar</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Memegang Peluru:</strong> Peluru diletakkan di pangkal jari-jari pada telapak tangan, bukan di tengah telapak tangan. Kemudian, peluru ditempelkan pada leher di bawah rahang.</li>
+                            <li><strong>Sikap Awalan:</strong> Ada dua gaya utama: Gaya Ortodoks (menyamping) dan Gaya O'Brien (membelakangi arah tolakan).</li>
+                            <li><strong>Gerakan Menolak:</strong> Bukan dilempar, melainkan didorong (ditolak) dengan kuat dari bahu. Gerakan ini melibatkan putaran pinggul, badan, dan diakhiri dengan lecutan lengan dan jari-jari.</li>
+                            <li><strong>Sikap Akhir:</strong> Setelah menolak, lakukan gerakan lanjutan untuk menjaga keseimbangan agar tidak keluar dari lingkaran tolakan.</li>
+                        </ul>
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Apa kesalahan fatal yang dapat menyebabkan diskualifikasi dalam tolak peluru?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Kesalahan fatal adalah <strong>melempar peluru</strong>, bukan menolaknya. Peluru harus selalu menempel pada leher/bahu sejak awalan hingga saat ditolakkan. Jika peluru terlepas dari leher sebelum gerakan tolakan selesai, itu dianggap lemparan dan akan didiskualifikasi. Selain itu, keluar dari lingkaran tolakan melalui bagian depan juga menyebabkan diskualifikasi.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Aktivitas atletik melatih kemampuan dasar gerak manusia. Jalan cepat menuntut efisiensi langkah tanpa melayang. Lari jarak pendek memaksimalkan kecepatan. Lompat jauh mengkonversi kecepatan menjadi jarak lompatan. Tolak peluru mengandalkan kekuatan ledak (power) untuk mendorong beban. Semua nomor ini membutuhkan penguasaan teknik yang spesifik dan latihan yang konsisten.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran4: {
+            title: 'Aktivitas Bela Diri',
+            content: `
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Pencak silat adalah olahraga bela diri asli warisan nenek moyang bangsa Indonesia. Bela diri ini tidak hanya mengandalkan kekuatan fisik, tetapi juga menggunakan akal, mental spiritual, dan nilai seni budaya. Bab ini akan membahas gerak spesifik dalam pencak silat.</p>
+                    </div>
+
+                    <!-- Pencak Silat -->
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Gerak Spesifik Pencak Silat</h3>
+                        <p class="mb-4">Gerak spesifik dalam pencak silat merupakan satu kesatuan gerak yang terencana dan terkendali, meliputi sikap, pola gerak, pembelaan, dan serangan.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">1. Sikap dalam Pencak Silat</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Sikap Berdiri:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Sikap Tegak:</strong> Posisi siap, sering digunakan untuk hormat atau memulai gerakan.</li>
+                                    <li><strong>Sikap Kuda-kuda:</strong> Posisi kaki yang kokoh sebagai dasar untuk melakukan serangan atau belaan. Ada kuda-kuda depan, belakang, samping, dan silang.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Sikap Pasang:</strong> Kombinasi sikap kuda-kuda dengan sikap tangan dan tubuh yang siap untuk menyerang atau membela. Ada sikap pasang atas, tengah, dan bawah.</li>
+                        </ul>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">2. Pembelaan</h4>
+                         <p class="mb-2">Pembelaan adalah prinsip utama dalam pencak silat, bertujuan menghindari atau menahan serangan lawan.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Elakan:</strong> Usaha pembelaan dengan cara memindahkan tubuh dari arah serangan tanpa kontak langsung. Contoh: elak hadap, elak samping.</li>
+                            <li><strong>Tangkisan:</strong> Usaha pembelaan dengan mengadakan kontak langsung (menahan atau membelokkan) serangan lawan menggunakan tangan, lengan, atau kaki.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">3. Serangan</h4>
+                         <p class="mb-2">Serangan bertujuan untuk mengenai sasaran pada tubuh lawan.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Serangan Lengan (Pukulan):</strong> Menggunakan tangan (tinju, tebak, sodok) atau siku untuk menyerang.</li>
+                            <li><strong>Serangan Tungkai (Tendangan):</strong> Menggunakan kaki untuk menyerang. Contoh: tendangan lurus, tendangan sabit, tendangan "T".</li>
+                             <li><strong>Teknik Menjatuhkan:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Sapuan:</strong> Serangan pada kaki lawan untuk menghilangkan keseimbangan.</li>
+                                    <li><strong>Guntingan:</strong> Gerakan menjepit kedua tungkai pada sasaran (pinggang atau kaki) untuk menjatuhkan lawan.</li>
+                                </ul>
+                             </li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Seorang pesilat menghadapi pukulan lurus dari lawan. Jika ia ingin menghindari pukulan tersebut tanpa menyentuh tangan lawan, teknik pembelaan apa yang harus ia lakukan?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Jawaban yang tepat adalah <strong>Elakan</strong>. Elakan adalah teknik pembelaan dengan cara memindahkan tubuh (sasaran) dari lintasan serangan. Berbeda dengan tangkisan yang melakukan kontak langsung, elakan berprinsip "menghindar untuk menyerang balik".</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Pencak silat adalah bela diri yang kompleks dan artistik. Penguasaan tekniknya membutuhkan latihan yang disiplin terhadap kuda-kuda sebagai pondasi, elakan dan tangkisan sebagai pertahanan, serta pukulan dan tendangan sebagai serangan. Filosofi pencak silat menekankan pada pertahanan diri dan budi pekerti luhur, bukan untuk mencari permusuhan.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran5: {
+            title: 'Aktivitas Kebugaran Jasmani',
+            content: `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Kebugaran jasmani adalah kesanggupan dan kemampuan tubuh untuk melakukan penyesuaian terhadap beban fisik yang diberikan tanpa menimbulkan kelelahan yang berlebihan. Memiliki kebugaran jasmani yang baik sangat penting untuk mendukung aktivitas sehari-hari dan menjaga kesehatan.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Komponen Kebugaran Jasmani</h3>
+                        <p class="mb-4">Ada beberapa komponen utama dalam kebugaran jasmani yang perlu dilatih secara seimbang.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">1. Kekuatan (Strength)</h4>
+                        <p class="mb-2">Kemampuan otot untuk membangkitkan tegangan terhadap suatu tahanan/beban.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Latihan Otot Perut:</strong> Sit-up.</li>
+                            <li><strong>Latihan Otot Lengan dan Bahu:</strong> Push-up.</li>
+                            <li><strong>Latihan Otot Punggung:</strong> Back-up.</li>
+                            <li><strong>Latihan Otot Tungkai:</strong> Squat atau naik turun bangku.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">2. Daya Tahan (Endurance)</h4>
+                        <p class="mb-2">Kemampuan seseorang untuk melakukan kerja dalam waktu yang relatif lama. Dibagi menjadi dua:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Daya Tahan Otot:</strong> Kemampuan otot untuk bekerja berulang kali dalam waktu lama. Contoh: melakukan push-up atau sit-up sebanyak mungkin.</li>
+                            <li><strong>Daya Tahan Jantung dan Paru-paru (Kardiorespirasi):</strong> Kemampuan jantung dan paru-paru menyuplai oksigen ke seluruh tubuh. Contoh: lari jarak jauh, berenang, bersepeda.</li>
+                        </ul>
+
+                         <h4 class="text-xl font-semibold mt-4 mb-2">3. Kecepatan (Speed)</h4>
+                        <p class="mb-2">Kemampuan untuk melakukan perpindahan tempat dalam waktu sesingkat-singkatnya. Contoh: lari cepat (sprint).</p>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">4. Kelenturan (Flexibility)</h4>
+                        <p class="mb-2">Kemampuan sendi untuk bergerak pada ruang gerak seluas-luasnya. Latihan kelenturan (peregangan) penting untuk mencegah cedera.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Peregangan Statis:</strong> Menahan posisi regangan selama beberapa detik (misal, mencium lutut).</li>
+                            <li><strong>Peregangan Dinamis:</strong> Peregangan yang dilakukan dengan gerakan berirama (misal, memutar lengan).</li>
+                        </ul>
+                       
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Seorang siswa melakukan lari mengelilingi lapangan sepak bola selama 12 menit tanpa berhenti. Komponen kebugaran jasmani utama apakah yang sedang ia latih?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Komponen utama yang dilatih adalah <strong>Daya Tahan Jantung dan Paru-paru (Kardiorespirasi)</strong>. Lari dalam durasi yang lama (di atas 5 menit) secara terus-menerus akan melatih kemampuan jantung untuk memompa darah dan paru-paru untuk menyerap oksigen secara efisien untuk disalurkan ke otot yang bekerja.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Kebugaran jasmani adalah fondasi dari hidup sehat. Melatih komponen-komponen seperti kekuatan, daya tahan, kecepatan, dan kelenturan secara teratur dan seimbang akan meningkatkan kemampuan fisik, mencegah penyakit, dan meningkatkan kualitas hidup secara keseluruhan. Latihan harus dilakukan secara bertahap dan konsisten untuk mendapatkan hasil yang optimal.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran6: {
+            title: 'Aktivitas Senam Lantai',
+            content: `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Senam lantai adalah salah satu cabang senam yang gerakannya dilakukan di atas matras. Olahraga ini mengembangkan komponen fisik seperti kekuatan, kelenturan, keseimbangan, dan keberanian. Semua gerakan harus dilakukan dengan teknik yang benar untuk keamanan dan keindahan gerak.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Gerakan Dasar Senam Lantai</h3>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">1. Guling Depan (Forward Roll)</h4>
+                        <p class="mb-2">Gerakan menggulingkan badan ke depan dengan posisi badan membulat.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Tahapan:</strong> Sikap jongkok/berdiri, letakkan telapak tangan di matras, tekuk siku, letakkan tengkuk (bukan kepala) di matras, dorong badan ke depan, dan saat punggung menyentuh matras, lipat kaki dan akhiri dengan sikap jongkok.</li>
+                            <li><strong>Kesalahan Umum:</strong> Menumpu dengan kepala, tumpuan tangan tidak kuat, badan tidak membulat.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">2. Guling Belakang (Backward Roll)</h4>
+                        <p class="mb-2">Gerakan menggulingkan badan ke belakang dengan posisi badan membulat.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Tahapan:</strong> Sikap jongkok membelakangi matras, gulingkan badan ke belakang, saat panggul menyentuh matras, letakkan telapak tangan di samping telinga, tolak dengan tangan, dan akhiri dengan sikap jongkok.</li>
+                            <li><strong>Kesalahan Umum:</strong> Posisi tangan salah, tolakan tangan lemah, kepala menoleh ke samping.</li>
+                        </ul>
+
+                         <h4 class="text-xl font-semibold mt-4 mb-2">3. Guling Lenting (Neckspring)</h4>
+                        <p class="mb-2">Gerakan melentingkan badan ke atas depan yang diawali dengan gerakan setengah guling depan atau belakang.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Tahapan:</strong> Dari sikap guling, lecutkan kedua kaki lurus ke depan atas, dibantu dengan tolakan kedua tangan. Mendarat dengan kedua kaki rapat dan lengan lurus ke atas.</li>
+                            <li><strong>Kesalahan Umum:</strong> Badan kurang melenting, tolakan tangan lemah, kaki bengkok saat melempar.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Bagian tubuh manakah yang pertama kali menyentuh matras saat melakukan gerakan guling depan yang benar?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Bagian tubuh yang benar untuk menyentuh matras pertama kali adalah <strong>tengkuk (bagian belakang leher)</strong>. Bukan puncak kepala atau dahi. Meletakkan tengkuk memastikan bahwa gerakan mengguling menjadi membulat sempurna dan mencegah terjadinya cedera pada leher.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Senam lantai adalah aktivitas yang membutuhkan kontrol tubuh yang baik. Gerakan seperti guling depan, guling belakang, dan guling lenting harus dipelajari secara bertahap. Keselamatan adalah hal utama, oleh karena itu selalu gunakan matras dan lakukan pemanasan yang cukup. Menguasai senam lantai membangun kepercayaan diri dan kesadaran tubuh yang tinggi.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran7: {
+            title: 'Aktivitas Gerak Berirama',
+            content: `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Aktivitas gerak berirama, atau sering disebut senam irama, adalah gerakan senam yang dilakukan mengikuti irama musik atau ketukan. Tekanan utama dalam aktivitas ini adalah kesesuaian gerak dengan irama, kelentukan tubuh, dan kontinuitas (kesinambungan) gerakan.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Gerak Langkah Kaki</h3>
+                        <p class="mb-4">Langkah kaki adalah dasar dari gerak berirama. Variasi langkah menciptakan pola gerakan yang indah.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Langkah Biasa (Loppas):</strong> Melangkah seperti berjalan biasa, tumit mendarat lebih dulu.</li>
+                            <li><strong>Langkah Rapat (Bytrekpas):</strong> Melangkahkan kaki ke depan, lalu kaki yang lain menyusul dan dirapatkan.</li>
+                            <li><strong>Langkah Keseimbangan (Balanspas):</strong> Melangkah ke depan, lalu kaki belakang menyusul, dan saat tumit terangkat, kaki depan mundur diikuti kaki belakang.</li>
+                            <li><strong>Langkah Depan (Galopas):</strong> Gerakan langkah seperti derap kuda.</li>
+                            <li><strong>Langkah Silang (Kruispas):</strong> Menyilangkan kaki di muka atau di belakang badan.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Apa tiga unsur utama yang harus diperhatikan dalam senam irama?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Tiga unsur utama tersebut adalah: <br>1. <strong>Irama:</strong> Ketepatan gerakan dengan ketukan musik atau hitungan.<br>2. <strong>Kelentukan Tubuh (Fleksibilitas):</strong> Kemampuan tubuh untuk melakukan gerakan dengan luwes.<br>3. <strong>Kontinuitas Gerakan:</strong> Gerakan yang mengalir, tidak terputus-putus, dan sambung-menyambung dengan gerakan berikutnya.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">B. Gerakan Ayunan Lengan</h3>
+                        <p class="mb-4">Gerakan lengan menambah estetika dan variasi dalam senam irama.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Ayunan Satu Lengan:</strong> Ke depan-belakang atau ke samping.</li>
+                            <li><strong>Ayunan Dua Lengan:</strong> Ke depan-belakang, atau menyilang di depan badan.</li>
+                            <li><strong>Ayunan Lengan Melingkar:</strong> Di atas kepala atau di samping badan.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">C. Kombinasi Gerak Langkah Kaki dan Ayunan Lengan</h3>
+                        <p>Inti dari senam irama adalah mengkombinasikan gerak langkah kaki dan ayunan lengan secara harmonis dan sesuai dengan irama. Contoh kombinasi:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Langkah ke depan sambil mengayunkan lengan ke atas.</li>
+                            <li>Langkah ke samping sambil merentangkan tangan.</li>
+                            <li>Langkah silang sambil mengayunkan lengan menyilang di depan dada.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Aktivitas gerak berirama menggabungkan olahraga dan seni. Gerakan yang terstruktur, ketika dipadukan dengan musik yang tepat, akan menghasilkan sebuah rangkaian yang indah dan menyehatkan. Kunci utamanya adalah merasakan irama dan mengekspresikannya melalui gerakan tubuh yang luwes dan berkesinambungan.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran8: {
+            title: 'Aktivitas Air',
+            content: `
+                <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Aktivitas air, khususnya renang, adalah olahraga unik yang dilakukan di dalam air. Renang tidak hanya menyehatkan jantung dan paru-paru, tetapi juga melatih hampir seluruh otot tubuh dengan risiko cedera yang rendah. Bab ini akan fokus pada pembelajaran renang gaya dada.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Renang Gaya Dada (Gaya Katak)</h3>
+                        <p class="mb-4">Gaya dada adalah gaya renang yang gerakannya menyerupai katak berenang. Gaya ini sering digunakan untuk rekreasi karena posisi kepala dapat dengan mudah berada di atas air.</p>
+                        
+                        <h4 class="text-xl font-semibold mt-4 mb-2">1. Posisi Tubuh</h4>
+                        <p class="mb-2">Posisi tubuh saat meluncur harus sehorizontal mungkin dengan permukaan air. Seluruh tubuh, dari kepala hingga kaki, harus dalam keadaan rileks.</p>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">2. Gerakan Kaki (Tendangan)</h4>
+                        <p class="mb-2">Gerakan kaki adalah sumber dorongan utama dalam gaya dada.</p>
+                        <ul class="list-decimal list-inside space-y-2">
+                            <li><strong>Recovery:</strong> Tekuk lutut dan tarik tumit ke arah pinggul.</li>
+                            <li><strong>Catch:</strong> Putar pergelangan kaki ke arah luar.</li>
+                            <li><strong>Propulsion:</strong> Dorong dan tendang kedua kaki ke belakang-samping dalam gerakan melingkar, lalu rapatkan kembali hingga lurus.</li>
+                        </ul>
+
+                         <h4 class="text-xl font-semibold mt-4 mb-2">3. Gerakan Lengan (Tarikan)</h4>
+                        <p class="mb-2">Gerakan lengan membantu mendorong tubuh ke depan dan mengangkat kepala untuk bernapas.</p>
+                         <ul class="list-decimal list-inside space-y-2">
+                            <li><strong>Outward sweep:</strong> Dari posisi lurus di depan, buka kedua tangan ke samping hingga sedikit lebih lebar dari bahu.</li>
+                            <li><strong>Inward sweep:</strong> Tekuk siku dan tarik kedua tangan ke arah dalam di bawah dada.</li>
+                            <li><strong>Recovery:</strong> Dorong kembali kedua tangan lurus ke depan.</li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">4. Pernapasan</h4>
+                        <p class="mb-2">Pengambilan napas dilakukan saat kedua lengan melakukan tarikan ke dalam (inward sweep). Kepala diangkat ke atas permukaan air untuk mengambil napas melalui mulut. Udara dihembuskan di dalam air saat lengan kembali lurus ke depan.</p>
+                       
+                        <h4 class="text-xl font-semibold mt-4 mb-2">5. Koordinasi Gerakan</h4>
+                        <p>Urutan gerakannya adalah: Satu tarikan lengan, kemudian satu tendangan kaki. Pengambilan napas dilakukan bersamaan dengan tarikan lengan.</p>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Kapan saat yang tepat untuk mengambil napas dalam renang gaya dada?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Saat yang tepat untuk mengambil napas adalah <strong>pada akhir fase tarikan lengan ke dalam (inward sweep)</strong>. Pada momen ini, dorongan dari lengan secara alami akan mengangkat bahu dan kepala ke atas permukaan air, memberikan kesempatan untuk menghirup udara melalui mulut sebelum kepala kembali masuk ke air saat lengan diluruskan ke depan.</p>
+                        </div>
+                    </div>
+                     <div>
+                        <h3 class="text-2xl font-semibold mb-3">B. Tata Tertib di Kolam Renang</h3>
+                        <p>Untuk keselamatan bersama, patuhi tata tertib berikut:</p>
+                         <ul class="list-disc list-inside space-y-2">
+                             <li>Lakukan pemanasan sebelum masuk ke air.</li>
+                             <li>Mandi di pancuran sebelum masuk kolam.</li>
+                             <li>Jangan berlari di tepi kolam.</li>
+                             <li>Jangan mendorong teman ke dalam kolam.</li>
+                             <li>Berenanglah di kedalaman yang sesuai dengan kemampuan.</li>
+                             <li>Basuh mata dan bersihkan telinga setelah berenang.</li>
+                         </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Renang gaya dada memerlukan koordinasi yang baik antara gerakan lengan, gerakan kaki, dan pernapasan. Kunci dari gaya ini adalah gerakan kaki yang kuat dan melingkar, serta timing pernapasan yang tepat. Selalu utamakan keselamatan dengan mematuhi tata tertib yang berlaku di kolam renang.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran9: {
+            title: 'Perkembangan Tubuh Remaja',
+            content: `
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Masa remaja adalah masa transisi dari anak-anak menuju dewasa, yang ditandai dengan perubahan fisik, psikis, dan sosial yang sangat pesat. Memahami perkembangan ini penting agar remaja dapat tumbuh menjadi individu yang sehat dan bertanggung jawab.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Pertumbuhan dan Perkembangan Jasmani</h3>
+                        <p class="mb-4">Pertumbuhan jasmani pada masa remaja (pubertas) sangat cepat. Perkembangan ini dipengaruhi oleh tiga faktor utama:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Faktor Keturunan (Genetika):</strong> Mempengaruhi postur tubuh, tinggi badan, dll.</li>
+                            <li><strong>Faktor Pembawaan:</strong> Kondisi sejak dalam kandungan.</li>
+                            <li><strong>Faktor Luar:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Gizi:</strong> Asupan makanan sangat penting untuk mendukung pertumbuhan.</li>
+                                    <li><strong>Kesehatan:</strong> Anak yang sering sakit pertumbuhannya bisa terhambat.</li>
+                                    <li><strong>Rangsangan (Olahraga):</strong> Aktivitas fisik merangsang pertumbuhan tulang dan otot yang kuat.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h4 class="text-xl font-semibold mt-4 mb-2">Perubahan pada Masa Remaja (Pubertas)</h4>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Laki-laki:</strong> Suara membesar, tumbuh jakun, tumbuh rambut di area tertentu, mimpi basah.</li>
+                            <li><strong>Perempuan:</strong> Pinggul melebar, payudara membesar, tumbuh rambut di area tertentu, mengalami menstruasi pertama.</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">B. Ciri-ciri Anak Sehat</h3>
+                        <p>Anak yang sehat memiliki ciri-ciri sebagai berikut:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>Tumbuh dengan baik (berat dan tinggi badan seimbang).</li>
+                            <li>Tangkas, gesit, dan gembira.</li>
+                            <li>Nafsu makan baik.</li>
+                            <li>Kulit dan rambut bersih.</li>
+                            <li>Mudah menyesuaikan diri dengan lingkungan.</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">C. Pemanfaatan Waktu Luang untuk Kesehatan</h3>
+                        <p class="mb-4">Mengisi waktu luang dengan kegiatan positif sangat penting untuk kesehatan fisik dan mental.</p>
+                         <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Gerak Badan (Olahraga):</strong> Menjaga kebugaran, memperlancar sirkulasi darah, dan menguatkan otot.</li>
+                            <li><strong>Rekreasi:</strong> Kegiatan yang menyenangkan untuk menyegarkan pikiran dan mengurangi stres.</li>
+                            <li><strong>Istirahat dan Tidur Cukup:</strong> Memberi kesempatan tubuh untuk memulihkan energi dan memperbaiki sel-sel yang rusak. Kebutuhan tidur remaja sekitar 8-10 jam per malam.</li>
+                        </ul>
+
+                         <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Mengapa aktivitas fisik seperti olahraga sangat penting pada masa pertumbuhan remaja?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Olahraga pada masa remaja sangat penting karena memberikan <strong>rangsangan</strong> bagi pertumbuhan. Aktivitas fisik akan merangsang tulang untuk tumbuh lebih padat dan kuat, serta mengembangkan massa otot. Selain itu, olahraga membantu mengontrol berat badan, meningkatkan kebugaran jantung, dan melepaskan stres yang sering dialami remaja.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Masa remaja adalah periode krusial yang penuh perubahan. Pertumbuhan fisik yang pesat harus didukung oleh gizi yang baik, olahraga teratur, serta istirahat yang cukup. Memahami perubahan yang terjadi dan mengelolanya dengan pola hidup sehat akan membantu remaja melewati masa ini dengan baik dan menjadi dewasa yang sehat secara fisik dan mental.</p>
+                    </div>
+                </div>
+            `
+        },
+        pelajaran10: {
+            title: 'Pola Makan Sehat & Bergizi',
+            content: `
+                 <div class="space-y-6">
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Pendahuluan</h3>
+                        <p>Makanan adalah sumber energi dan zat gizi yang mutlak diperlukan untuk kelangsungan hidup, pertumbuhan, dan fungsi tubuh. Pola makan yang sehat, bergizi, dan seimbang adalah kunci untuk mencapai kesehatan yang optimal. Bab ini akan membahas tentang pentingnya gizi dan bagaimana menyusun pola makan yang baik.</p>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">A. Guna Makanan (Zat Gizi)</h3>
+                        <p class="mb-4">Zat gizi dari makanan memiliki tiga fungsi utama:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Sebagai Zat Tenaga (Sumber Energi):</strong> Untuk melakukan semua aktivitas fisik dan fungsi tubuh. Sumber utamanya adalah <strong>Karbohidrat</strong> (nasi, roti, kentang) dan <strong>Lemak</strong> (minyak, mentega, alpukat).</li>
+                            <li><strong>Sebagai Zat Pembangun:</strong> Untuk pertumbuhan, perbaikan, dan pemeliharaan sel-sel tubuh. Sumber utamanya adalah <strong>Protein</strong> (daging, ikan, telur, tempe, tahu).</li>
+                            <li><strong>Sebagai Zat Pengatur:</strong> Untuk mengatur semua proses dalam tubuh, seperti metabolisme dan menjaga daya tahan tubuh. Sumber utamanya adalah <strong>Vitamin</strong> dan <strong>Mineral</strong> (sayuran dan buah-buahan).</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">B. Makanan Sehat dan Bergizi Seimbang</h3>
+                        <p>Makanan sehat dan bergizi seimbang artinya susunan makanan sehari-hari mengandung semua zat gizi (karbohidrat, protein, lemak, vitamin, mineral, dan air) dalam jumlah yang cukup dan perbandingan yang seimbang, sesuai kebutuhan tubuh. Konsep ini sering divisualisasikan dengan "Isi Piringku":</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong>1/2 Piring:</strong> Diisi sayur dan buah.</li>
+                            <li><strong>1/2 Piring Sisanya:</strong> Diisi makanan pokok (sumber karbohidrat) dan lauk-pauk (sumber protein).</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">C. Pengetahuan tentang Gizi Salah</h3>
+                        <p class="mb-4">Gizi salah adalah ketidakseimbangan antara asupan dan kebutuhan gizi, bisa berupa gizi kurang atau gizi lebih.</p>
+                         <ul class="list-disc list-inside space-y-2">
+                            <li><strong>Gizi Kurang:</strong>
+                                <ul class="list-circle list-inside ml-6 mt-1">
+                                    <li><strong>Kurang Kalori Protein (KKP):</strong> Menyebabkan Kwashiorkor (kekurangan protein, ditandai bengkak) dan Marasmus (kekurangan kalori, sangat kurus).</li>
+                                    <li><strong>Kurang Vitamin A:</strong> Menyebabkan gangguan penglihatan (buta senja).</li>
+                                    <li><strong>Kurang Zat Besi:</strong> Menyebabkan anemia (kurang darah).</li>
+                                    <li><strong>Kurang Yodium:</strong> Menyebabkan penyakit gondok.</li>
+                                </ul>
+                            </li>
+                            <li><strong>Gizi Lebih:</strong> Konsumsi energi berlebihan menyebabkan penumpukan lemak, yang berujung pada kelebihan berat badan (overweight) dan obesitas. Obesitas meningkatkan risiko penyakit jantung, diabetes, dan tekanan darah tinggi.</li>
+                        </ul>
+
+                         <h4 class="text-xl font-semibold mt-4 mb-2">Contoh Soal dan Pembahasan</h4>
+                        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded-r-lg">
+                            <p class="font-semibold">Soal:</p>
+                            <p>Seorang anak terlihat sangat kurus hingga seperti tulang terbungkus kulit, wajahnya seperti orang tua, dan kulitnya keriput. Kondisi gizi salah apakah yang diderita anak tersebut?</p>
+                            <p class="mt-2 font-semibold">Pembahasan:</p>
+                            <p>Gejala-gejala tersebut merupakan ciri khas dari <strong>Marasmus</strong>. Marasmus adalah bentuk parah dari Kurang Kalori Protein (KKP) yang disebabkan oleh kekurangan asupan kalori (energi) yang kronis. Berbeda dengan Kwashiorkor yang disebabkan kekurangan protein dan ditandai dengan edema (bengkak), Marasmus menunjukkan penampakan 'wasting' atau penyusutan jaringan lemak dan otot yang parah.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-semibold mb-3">Rangkuman</h3>
+                        <p>Pola makan sehat, bergizi, dan seimbang adalah pilar utama kesehatan. Dengan memahami fungsi zat gizi dan menerapkannya dalam menu sehari-hari, kita dapat mendukung pertumbuhan, menjaga daya tahan tubuh, dan mencegah terjadinya gizi salah, baik gizi kurang maupun gizi lebih. Mengonsumsi makanan yang beragam adalah cara terbaik untuk memastikan semua kebutuhan gizi tubuh terpenuhi.</p>
+                    </div>
+                </div>
+            `
+        },
+        kuis: {
+            title: 'Kuis Interaktif',
+            content: `<div id="quiz-container"></div>`
+        }
+    };
+    
+    const quizData = [
+        // Pelajaran 1
+        {
+            question: "1. Gerakan menendang bola yang digunakan untuk memberikan bola jarak pendek antarpemain adalah...",
+            options: ["menendang bola dengan kaki bagian luar", "menahan bola dengan kaki bagian dalam", "menendang bola dengan punggung kaki", "menendang bola dengan kaki bagian dalam"],
+            answer: 3,
+            explanation: "Menendang dengan kaki bagian dalam memberikan akurasi tertinggi untuk operan jarak pendek."
+        },
+        {
+            question: "2. Gerakan memukul bola sambil meloncat dekat net sekuat-kuatnya dengan maksud untuk mematikan permainan lawan dalam bola voli disebut...",
+            options: ["servis", "spike/smash", "passing", "block"],
+            answer: 1,
+            explanation: "Spike atau smash adalah pukulan serangan utama dalam bola voli yang dilakukan dengan keras dan menukik."
+        },
+        {
+            question: "3. Operan dalam bola basket yang dilakukan dengan memantulkan bola ke lantai untuk menghindari hadangan lawan disebut...",
+            options: ["operan dari samping", "operan dari atas kepala", "operan pantulan (bounce pass)", "operan setinggi dada (chest pass)"],
+            answer: 2,
+            explanation: "Operan pantul (bounce pass) sangat efektif untuk melewati pemain bertahan yang tinggi."
+        },
+        // Pelajaran 2
+        {
+            question: "4. Dalam permainan kasti, seorang pemukul yang pukulannya berhasil dan ia secara langsung dapat kembali ke ruang bebas tanpa berhenti di tiang hinggap, mendapat nilai...",
+            options: ["1", "2", "3", "4"],
+            answer: 1,
+            explanation: "Pukulan yang berhasil dan pelari langsung kembali ke ruang bebas (home run) mendapatkan nilai 2."
+        },
+        {
+            question: "5. Pukulan dalam permainan bulu tangkis yang dilakukan dengan tujuan untuk menerbangkan shuttlecock setinggi mungkin mengarah jauh ke belakang garis lapangan dinamakan...",
+            options: ["pukulan servis", "pukulan drive", "dropshot", "pukulan lob"],
+            answer: 3,
+            explanation: "Pukulan lob adalah pukulan defensif yang bertujuan untuk mengulur waktu dan memaksa lawan mundur ke belakang."
+        },
+        {
+            question: "6. Gerakan memukul bola dengan gerakan mendorong dan sikap bet terbuka dalam tenis meja disebut...",
+            options: ["push", "drive", "block", "chop"],
+            answer: 0,
+            explanation: "Push adalah pukulan dasar yang digunakan untuk mengembalikan bola pendek atau bola backspin."
+        },
+        // Pelajaran 3
+        {
+            question: "7. Perbedaan paling mendasar antara jalan dan lari terletak pada...",
+            options: ["cara kaki menapak", "kecondongan badan", "fase melayang", "panjang langkah"],
+            answer: 2,
+            explanation: "Pada jalan cepat, salah satu kaki harus selalu kontak dengan tanah. Pada lari, ada fase di mana kedua kaki melayang (tidak menyentuh tanah)."
+        },
+        {
+            question: "8. Dalam lari jarak pendek, aba-aba yang menandakan pelari harus mengangkat panggul lebih tinggi dari bahu adalah...",
+            options: ["Bersedia", "Siap", "Ya!", "Mulai"],
+            answer: 1,
+            explanation: "Pada aba-aba 'Siap', panggul diangkat untuk menciptakan posisi tubuh yang optimal untuk melakukan tolakan."
+        },
+        {
+            question: "9. Agar hasil lompatan jauh diukur maksimal, saat mendarat atlet harus berusaha agar...",
+            options: ["jatuh ke samping", "jatuh ke belakang", "jatuh ke depan", "jatuh telentang"],
+            answer: 2,
+            explanation: "Atlet harus jatuh ke depan atau duduk di atas kedua kaki. Jika jatuh ke belakang, bagian tubuh yang paling belakang (tangan atau pantat) yang akan diukur, sehingga mengurangi jarak lompatan."
+        },
+        {
+            question: "10. Dalam tolak peluru, gaya di mana atlet memulai dengan posisi membelakangi arah tolakan disebut...",
+            options: ["Gaya Ortodoks (menyamping)", "Gaya O'Brien", "Gaya Lari", "Gaya Melingkar"],
+            answer: 1,
+            explanation: "Gaya O'Brien adalah gaya modern yang dimulai dengan membelakangi sektor tolakan untuk menghasilkan momentum yang lebih besar."
+        },
+        // Pelajaran 4
+        {
+            question: "11. Dalam pencak silat, usaha pembelaan dengan cara mengadakan kontak langsung dengan serangan lawan disebut...",
+            options: ["elakan", "hindaran", "tangkisan", "kuda-kuda"],
+            answer: 2,
+            explanation: "Tangkisan adalah bentuk pembelaan aktif dengan memblokir atau membelokkan serangan lawan."
+        },
+        {
+            question: "12. Gerakan menjatuhkan lawan dengan cara menjepit kedua tungkai pada sasaran leher, pinggang, atau tungkai lawan disebut...",
+            options: ["sapuan", "tendangan", "pukulan", "guntingan"],
+            answer: 3,
+            explanation: "Guntingan adalah teknik khusus untuk menjatuhkan lawan dengan menggunakan jepitan kedua kaki."
+        },
+        {
+            question: "13. Posisi kaki yang kokoh sebagai dasar untuk melakukan sikap dan gerakan bela serang dalam pencak silat adalah...",
+            options: ["sikap pasang", "langkah", "kuda-kuda", "sikap tegak"],
+            answer: 2,
+            explanation: "Kuda-kuda adalah pondasi utama dalam pencak silat untuk menjaga keseimbangan dan kekuatan saat menyerang atau bertahan."
+        },
+        // Pelajaran 5
+        {
+            question: "14. Kemampuan otot untuk melakukan suatu kerja melawan beban dalam waktu yang cukup lama disebut...",
+            options: ["kekuatan otot", "daya tahan otot", "kecepatan", "kelenturan"],
+            answer: 1,
+            explanation: "Daya tahan otot adalah kemampuan otot untuk berkontraksi berulang kali tanpa mengalami kelelahan yang berarti."
+        },
+        {
+            question: "15. Latihan seperti lari jarak jauh, berenang, dan bersepeda bertujuan utama untuk meningkatkan...",
+            options: ["kekuatan", "kecepatan", "daya tahan jantung dan paru-paru", "kelincahan"],
+            answer: 2,
+            explanation: "Aktivitas aerobik seperti lari jarak jauh melatih sistem kardiorespirasi (jantung dan paru-paru) untuk bekerja lebih efisien."
+        },
+        {
+            question: "16. Gerakan sit-up adalah bentuk latihan yang paling efektif untuk melatih kekuatan otot...",
+            options: ["lengan", "punggung", "tungkai", "perut"],
+            answer: 3,
+            explanation: "Sit-up secara spesifik menargetkan otot-otot perut (abdominal) untuk menjadi lebih kuat."
+        },
+        // Pelajaran 6
+        {
+            question: "17. Pada saat melakukan gerakan guling depan, bagian tubuh yang pertama kali menumpu di matras setelah tangan adalah...",
+            options: ["puncak kepala", "dahi", "punggung", "tengkuk"],
+            answer: 3,
+            explanation: "Tengkuk (leher bagian belakang) adalah tumpuan yang benar untuk memastikan gerakan berguling yang membulat dan aman."
+        },
+        {
+            question: "18. Gerakan melentingkan badan ke atas depan yang disebabkan oleh lemparan kedua kaki dan tolakan kedua tangan disebut...",
+            options: ["guling depan", "guling belakang", "guling lenting", "meroda"],
+            answer: 2,
+            explanation: "Guling lenting adalah kombinasi gerakan guling dengan lecutan kaki dan tolakan tangan untuk menghasilkan gerakan melenting."
+        },
+        {
+            question: "19. Posisi tangan yang benar saat akan melakukan tolakan pada guling belakang adalah...",
+            options: ["di samping badan", "di depan dada", "di atas matras di samping telinga", "diluruskan ke depan"],
+            answer: 2,
+            explanation: "Tangan ditempatkan di samping telinga dengan telapak tangan menghadap ke atas untuk siap menolak dan menopang berat badan saat berguling."
+        },
+        // Pelajaran 7
+        {
+            question: "20. Tiga tekanan utama yang harus diberikan pada senam irama adalah...",
+            options: ["kekuatan, kecepatan, keseimbangan", "irama, kelentukan, kontinuitas gerakan", "lompatan, putaran, akurasi", "daya tahan, power, formasi"],
+            answer: 1,
+            explanation: "Senam irama menekankan pada keselarasan gerakan dengan musik (irama), keluwesan tubuh (kelentukan), dan rangkaian gerak yang tidak terputus (kontinuitas)."
+        },
+        {
+            question: "21. Langkah kaki dalam senam irama yang dilakukan dengan cara menyilangkan kaki di muka atau di belakang badan disebut...",
+            options: ["langkah biasa (loppas)", "langkah rapat (bytrekpas)", "langkah silang (kruispas)", "langkah keseimbangan (balanspas)"],
+            answer: 2,
+            explanation: "Kruispas atau langkah silang adalah gerakan dasar yang memberikan variasi arah dan keindahan dalam senam irama."
+        },
+        // Pelajaran 8
+        {
+            question: "22. Renang gaya dada sering juga disebut dengan gaya...",
+            options: ["kupu-kupu", "anjing", "katak", "bebas"],
+            answer: 2,
+            explanation: "Gerakan kaki dan tangan pada gaya dada menyerupai gerakan katak saat berenang."
+        },
+        {
+            question: "23. Pengambilan napas pada renang gaya dada dilakukan pada saat...",
+            options: ["kaki melakukan tendangan", "kedua lengan lurus di depan", "kepala menoleh ke samping", "kedua lengan melakukan tarikan ke arah dada"],
+            answer: 3,
+            explanation: "Saat kedua lengan ditarik ke arah dada, kepala secara alami akan terangkat ke atas permukaan air, inilah momen yang tepat untuk mengambil napas."
+        },
+        // Pelajaran 9
+        {
+            question: "24. Perubahan suara menjadi lebih besar, tumbuh jakun, dan mengalami mimpi basah adalah ciri-ciri pubertas pada...",
+            options: ["anak-anak", "laki-laki", "perempuan", "dewasa"],
+            answer: 1,
+            explanation: "Ini adalah ciri-ciri perkembangan seksual sekunder yang terjadi pada remaja laki-laki saat memasuki masa pubertas."
+        },
+        {
+            question: "25. Salah satu cara memanfaatkan waktu luang yang paling efektif untuk melepaskan lelah dan memulihkan energi tubuh adalah...",
+            options: ["bermain game", "tidur", "olahraga berat", "menonton TV"],
+            answer: 1,
+            explanation: "Tidur adalah cara istirahat yang paling baik karena memberi kesempatan tubuh untuk memperbaiki sel-sel dan memulihkan kekuatan secara total."
+        },
+        // Pelajaran 10
+        {
+            question: "26. Zat gizi yang berfungsi utama sebagai sumber energi bagi tubuh adalah...",
+            options: ["Protein dan Vitamin", "Karbohidrat dan Lemak", "Vitamin dan Mineral", "Air dan Serat"],
+            answer: 1,
+            explanation: "Karbohidrat adalah sumber energi utama, sedangkan lemak adalah sumber energi cadangan yang padat."
+        },
+        {
+            question: "27. Penyakit gondok disebabkan oleh kekurangan zat mineral...",
+            options: ["Kalsium", "Zat Besi", "Yodium", "Fosfor"],
+            answer: 2,
+            explanation: "Yodium sangat penting untuk fungsi kelenjar tiroid. Kekurangan yodium menyebabkan kelenjar ini membengkak (gondok)."
+        },
+        {
+            question: "28. Kondisi kekurangan kalori dan protein tingkat berat yang ditandai dengan badan sangat kurus (tinggal tulang terbungkus kulit) disebut...",
+            options: ["Kwashiorkor", "Anemia", "Skorbut", "Marasmus"],
+            answer: 3,
+            explanation: "Marasmus adalah kondisi gizi buruk akibat kekurangan kalori kronis, yang menyebabkan penyusutan jaringan lemak dan otot."
+        },
+        {
+            question: "29. Fungsi utama protein bagi tubuh adalah sebagai...",
+            options: ["zat tenaga", "zat pengatur", "zat pembangun", "zat pelarut vitamin"],
+            answer: 2,
+            explanation: "Meskipun bisa menjadi sumber energi, fungsi utama protein adalah sebagai zat pembangun untuk pertumbuhan dan perbaikan sel-sel tubuh."
+        },
+        {
+            question: "30. Berikut ini adalah tanda-tanda gangguan kesehatan pada mata, KECUALI...",
+            options: ["sering mengusap mata", "mata berair", "mata juling", "tonsil membesar"],
+            answer: 3,
+            explanation: "Tonsil membesar adalah tanda gangguan kesehatan pada area hidung dan mulut (tenggorokan), bukan pada mata."
+        }
+    ];
+
+     const essayData = [
+        {
+            question: "1. Jelaskan secara singkat 4 tahapan dalam melakukan lompat jauh!",
+            explanation: "Empat tahapan lompat jauh adalah: 1. **Awalan (ancang-ancang):** berlari untuk mendapatkan kecepatan maksimal. 2. **Tolakan:** menolak dengan satu kaki terkuat pada papan tolak untuk mengubah kecepatan lari menjadi lompatan. 3. **Melayang di udara:** menjaga keseimbangan dengan gaya jongkok, menggantung, atau berjalan di udara. 4. **Mendarat:** mendarat dengan kedua kaki di bak pasir dan badan condong ke depan."
+        },
+        {
+            question: "2. Mengapa dalam pencak silat, kuda-kuda dianggap sebagai teknik yang paling fundamental (mendasar)?",
+            explanation: "Kuda-kuda dianggap fundamental karena merupakan pondasi untuk semua gerakan. Kuda-kuda yang kokoh memberikan keseimbangan yang stabil saat melakukan serangan (pukulan/tendangan) maupun pembelaan (elakan/tangkisan). Tanpa kuda-kuda yang baik, seorang pesilat akan mudah goyah dan kehilangan kekuatannya."
+        },
+        {
+            question: "3. Apa perbedaan antara peregangan statis dan peregangan dinamis? Berikan masing-masing satu contoh!",
+            explanation: "<strong>Peregangan Statis</strong> adalah peregangan yang dilakukan dengan menahan posisi regangan selama beberapa waktu (misalnya 15-30 detik). Contoh: Duduk dan berusaha mencium lutut. <br><strong>Peregangan Dinamis</strong> adalah peregangan yang dilakukan melalui gerakan yang terkontrol dan berirama. Contoh: Memutar lengan ke depan atau ke belakang."
+        },
+        {
+            question: "4. Jelaskan urutan koordinasi gerakan renang gaya dada yang benar (lengan, kaki, dan napas)!",
+            explanation: "Urutan koordinasi yang benar adalah: <strong>1. Tarikan Lengan:</strong> Kedua lengan membuka ke samping lalu menarik ke arah dada. <strong>2. Ambil Napas:</strong> Bersamaan dengan tarikan lengan, kepala diangkat untuk mengambil napas. <strong>3. Tendangan Kaki:</strong> Saat lengan didorong lurus ke depan, kedua kaki melakukan gerakan tendangan seperti katak untuk memberikan dorongan. Urutannya adalah satu tarikan lengan diikuti satu tendangan kaki."
+        },
+        {
+            question: "5. Apa yang dimaksud dengan pola makan bergizi seimbang dan mengapa itu penting bagi remaja?",
+            explanation: "Pola makan bergizi seimbang adalah mengonsumsi makanan yang mengandung semua zat gizi (karbohidrat, protein, lemak, vitamin, mineral, air) dalam jumlah yang cukup dan proporsi yang tepat sesuai kebutuhan tubuh. Ini sangat penting bagi remaja karena mereka berada dalam masa pertumbuhan yang pesat. Gizi seimbang diperlukan untuk mendukung pertumbuhan fisik (tulang, otot, organ), perkembangan otak (kecerdasan), dan menyediakan energi yang cukup untuk belajar dan beraktivitas."
+        }
+    ];
+    
+    // --- STATE VARIABLES ---
+    let currentMCQuestionIndex = 0;
+    let currentEssayIndex = 0;
+    let mcScore = 0;
+
+    // --- DOM ELEMENTS ---
+    const navSelect = document.getElementById('nav-select');
+    const mainContent = document.getElementById('main-content');
+    const contentTitle = document.getElementById('content-title');
+    const searchInput = document.getElementById('search-input');
+    
+    // --- FUNCTIONS ---
+    function populateNav() {
+        const navItems = Object.keys(allData).map(key => {
+            return `<option value="${key}">${allData[key].title}</option>`;
+        }).join('');
+        navSelect.innerHTML = navItems;
+    }
+
+    function renderContent(key) {
+        if (!allData[key]) {
+            mainContent.innerHTML = `<div class="text-center p-10"><h2 class="text-2xl font-bold">Selamat Datang di Website Pembelajaran PJOK</h2><p class="mt-4 text-lg text-gray-600">Silakan pilih materi pelajaran dari menu di atas untuk mulai belajar.</p></div>`;
+            contentTitle.textContent = 'Selamat Datang!';
+            return;
+        }
+
+        const lesson = allData[key];
+        contentTitle.textContent = lesson.title;
+        mainContent.innerHTML = `<div class="bg-white p-6 rounded-lg shadow-sm">${lesson.content}</div>`;
+
+        if (key === 'kuis') {
+            startQuiz();
+        }
+    }
+    
+    function startQuiz() {
+        currentMCQuestionIndex = 0;
+        currentEssayIndex = 0;
+        mcScore = 0;
+        const quizContainer = document.getElementById('quiz-container');
+        if (quizContainer) {
+            quizContainer.innerHTML = ''; // Clear previous quiz content
+            renderMCQuestion();
+        }
+    }
+
+    function renderMCQuestion() {
+        const quizContainer = document.getElementById('quiz-container');
+        if (currentMCQuestionIndex >= quizData.length) {
+            showMCResults();
+            return;
+        }
+
+        const q = quizData[currentMCQuestionIndex];
+        let quizHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="mb-2 text-sm font-medium text-gray-500">Pilihan Ganda: Soal ${currentMCQuestionIndex + 1} dari ${quizData.length}</div>
+                <p class="text-xl font-semibold mb-4">${q.question}</p>
+                <div id="options-container" class="space-y-3">
+                    ${q.options.map((opt, i) => `
+                        <div class="flex items-center p-3 rounded-md border-2 border-gray-200 cursor-pointer quiz-option" data-index="${i}">
+                            <span>${opt}</span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="quiz-explanation" id="exp-mc-${currentMCQuestionIndex}">${q.explanation}</div>
+                <div id="quiz-nav" class="mt-6"></div>
+            </div>
+        `;
+        quizContainer.innerHTML = quizHTML;
+
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', () => checkMCAnswer(option));
+        });
+    }
+
+    function checkMCAnswer(selectedOption) {
+        const q = quizData[currentMCQuestionIndex];
+        const userAnswer = parseInt(selectedOption.dataset.index);
+
+        // Disable all options
+        document.querySelectorAll('.quiz-option').forEach(opt => {
+            opt.classList.add('disabled');
+        });
+
+        if (userAnswer === q.answer) {
+            mcScore++;
+            selectedOption.classList.add('selected-correct');
+        } else {
+            selectedOption.classList.add('selected-incorrect');
+            // Also highlight the correct answer
+            document.querySelector(`.quiz-option[data-index='${q.answer}']`).classList.add('selected-correct');
+        }
+
+        document.getElementById(`exp-mc-${currentMCQuestionIndex}`).classList.add('visible');
+        
+        const nextButton = document.createElement('button');
+        nextButton.textContent = 'Lanjut';
+        nextButton.className = 'w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 transition duration-300';
+        nextButton.onclick = () => {
+            currentMCQuestionIndex++;
+            renderMCQuestion();
+        };
+        document.getElementById('quiz-nav').appendChild(nextButton);
+    }
+
+    function showMCResults() {
+        const quizContainer = document.getElementById('quiz-container');
+        quizContainer.innerHTML = `
+            <div class="bg-white p-8 rounded-lg shadow-sm text-center">
+                <h3 class="text-2xl font-bold mb-4">Hasil Kuis Pilihan Ganda</h3>
+                <p class="text-4xl font-bold mb-4">${mcScore} / ${quizData.length}</p>
+                <p class="text-xl mb-6">Anda menjawab benar ${((mcScore/quizData.length)*100).toFixed(1)}% soal.</p>
+                <button id="start-essay-quiz" class="bg-green-600 text-white font-bold py-3 px-6 rounded-md hover:bg-green-700 transition duration-300">
+                    Lanjutkan ke Kuis Esai
+                </button>
+            </div>
+        `;
+        document.getElementById('start-essay-quiz').onclick = renderEssayQuestion;
+    }
+    
+    function renderEssayQuestion() {
+        const quizContainer = document.getElementById('quiz-container');
+        if (currentEssayIndex >= essayData.length) {
+            showFinalResults();
+            return;
+        }
+
+        const q = essayData[currentEssayIndex];
+        let quizHTML = `
+            <div class="bg-white p-6 rounded-lg shadow-sm">
+                <div class="mb-2 text-sm font-medium text-gray-500">Esai: Soal ${currentEssayIndex + 1} dari ${essayData.length}</div>
+                <p class="text-xl font-semibold mb-4">${q.question}</p>
+                <textarea class="w-full p-2 border border-gray-300 rounded-md" rows="4" placeholder="Ketik jawabanmu di sini..."></textarea>
+                <button class="show-essay-answer mt-3 px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700">Lihat Pembahasan</button>
+                <div class="quiz-explanation" id="exp-essay-${currentEssayIndex}">${q.explanation}</div>
+                <div id="quiz-nav" class="mt-6"></div>
+            </div>
+        `;
+        quizContainer.innerHTML = quizHTML;
+        
+        document.querySelector('.show-essay-answer').addEventListener('click', function() {
+            this.style.display = 'none';
+            document.getElementById(`exp-essay-${currentEssayIndex}`).classList.add('visible');
+            const nextButton = document.createElement('button');
+            nextButton.textContent = 'Lanjut';
+            nextButton.className = 'w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-md hover:bg-blue-700 transition duration-300';
+            nextButton.onclick = () => {
+                currentEssayIndex++;
+                renderEssayQuestion();
+            };
+            document.getElementById('quiz-nav').appendChild(nextButton);
+        });
+    }
+
+    function showFinalResults() {
+        const quizContainer = document.getElementById('quiz-container');
+        quizContainer.innerHTML = `
+            <div class="bg-white p-8 rounded-lg shadow-sm text-center">
+                <h3 class="text-2xl font-bold mb-4">Kuis Selesai!</h3>
+                <p class="text-lg mb-6">Anda telah menyelesaikan semua bagian kuis. Semoga bermanfaat!</p>
+                <button onclick="window.location.hash = 'pelajaran1'" class="bg-blue-600 text-white font-bold py-3 px-6 rounded-md hover:bg-blue-700 transition duration-300">
+                    Kembali ke Materi Awal
+                </button>
+            </div>
+        `;
+    }
+
+    function handleNavChange() {
+        const key = navSelect.value;
+        window.location.hash = key;
+    }
+    
+    function handleHashChange() {
+        const key = window.location.hash.substring(1) || 'pelajaran1';
+        renderContent(key);
+        // Update select value without triggering change event
+        if (navSelect.value !== key) {
+            navSelect.value = key;
+        }
+    }
+    
+    function handleSearch() {
+        const query = searchInput.value.toLowerCase().trim();
+        if (!query) return;
+
+        for (const key in allData) {
+            if (allData.hasOwnProperty(key)) {
+                const lesson = allData[key];
+                const searchableContent = `${lesson.title} ${lesson.content}`.toLowerCase();
+                if (searchableContent.includes(query)) {
+                    window.location.hash = key;
+                    // Highlight logic can be added here if needed
+                    return; // Stop at first match
+                }
+            }
+        }
+        alert('Materi tidak ditemukan.');
+    }
+
+    // --- EVENT LISTENERS ---
+    navSelect.addEventListener('change', handleNavChange);
+    window.addEventListener('hashchange', handleHashChange);
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    });
+
+    // --- INITIALIZATION ---
+    populateNav();
+    // Initial content load based on hash or default
+    handleHashChange();
+});
+</script>
+</body>
+</html>
